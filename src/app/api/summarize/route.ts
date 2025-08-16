@@ -30,8 +30,9 @@ ${transcript}`;
     const summary = response.text || '';
 
     return NextResponse.json({ summary });
-  } catch (err: any) {
-    console.error('Summarize API error:', err);
-    return NextResponse.json({ error: err.message ?? 'Unknown error' }, { status: 500 });
+  } catch (err) {
+    const error = err as Error;
+    console.error('Summarize API error:', error);
+    return NextResponse.json({ error: error.message ?? 'Unknown error' }, { status: 500 });
   }
 }

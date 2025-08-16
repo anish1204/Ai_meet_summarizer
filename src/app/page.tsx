@@ -22,8 +22,9 @@ export default function HomePage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to summarize');
       setSummary(data.summary);
-    } catch (e: any) {
-      setStatus(e.message);
+    } catch (e) {
+      const error = e as Error;
+      setStatus(error.message);
     } finally {
       setLoading(false);
     }
@@ -40,9 +41,11 @@ export default function HomePage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed to send email');
       setStatus('Email sent successfully!');
-    } catch (e: any) {
-      setStatus(e.message);
+    } catch (e) {
+      const error = e as Error;
+      setStatus(error.message);
     }
+
   };
 
   return (
